@@ -1,8 +1,21 @@
 body {
-    overflow: hidden;
-    -webkit-app-region: drag;
-    background-color: black;
+    /*overflow: hidden;*/
+    /*-webkit-app-region: drag;*/
+    /*background-color: black;*/
+    position: relative;
 }
 
 
+#term {
+   color:white;
+    /*display: none;*/
+    position: absolute;
+    top: 0;
+    left: 0;
 
+}
+
+
+#term textarea {
+
+}

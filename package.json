@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.html",
   "window": {
-    "toolbar" : false,
+    "toolbar": false,
     "frame": false,
-    "width": 815, /* 50 tiles, tile width = 16 + 20 */
-    "height": 590 /* 35 * 16 + 20 */
+    "width": 815,
+    "height": 590
   }
 }

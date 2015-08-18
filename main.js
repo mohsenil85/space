@@ -32,8 +32,10 @@ Player.prototype.act = function() {
 Player.prototype.handleEvent = function (e){
 
     console.log(e.keyCode.toString());
+    if (!Game.isTermDisplayed){
+
     var keyMap = {};
-    //debugger;
+
     keyMap[72] = 6 ; //h
     keyMap[74] = 4 ; //j
     keyMap[75] = 0 ; //k
@@ -44,21 +46,34 @@ Player.prototype.handleEvent = function (e){
     keyMap[66] = 5 ; //b
     keyMap[78] = 3 ; //n
 
+
+    //keyMap[9] = 3 ; //n
     var code = e.keyCode;
-    if (!(code in keyMap)) { return; }
 
-    var diff = ROT.DIRS[8][keyMap[code]];
-    var newX = this._x + diff[0];
-    var newY = this._y + diff[1];
-    var newKey = newX + "," + newY;
-    if (!(newKey in Game.map)) { return; }
+    //debugger;
+    //switch...
+    if(code === 27) {
+        Game.isTermDisplayed = true;
+        $("#term").toggle();
+        $("#term textarea").focus();
 
-    Game.display.draw(this._x, this._y, Game.map[this._x+","+this._y]);
-    this._x = newX;
-    this._y = newY;
-    this._draw();
+    } else if(!(code in keyMap)) {
+        return;
+    } else {
+        var diff = ROT.DIRS[8][keyMap[code]];
+        var newX = this._x + diff[0];
+        var newY = this._y + diff[1];
+        var newKey = newX + "," + newY;
+        if (!(newKey in Game.map)) { return; }
+        Game.display.draw(this._x, this._y, Game.map[this._x+","+this._y]);
+        this._x = newX;
+        this._y = newY;
+        this._draw();
+    }
+
     window.removeEventListener("keydown", this);
     Game.engine.unlock();
+    }
 }
 Player.prototype._draw = function(){
     Game.display.draw(this._x, this._y, "@", "#ff0");
@@ -68,8 +83,10 @@ var Game = {
     display: null,
     player : null,
     engine : null,
+    isTermDisplayed: false,
 
     init: function() {
+        $("#term").hide();
         this.display =  new ROT.Display();
         document.getElementById("map").appendChild(Game.display.getContainer());
         this._generateMap();
@@ -117,6 +134,9 @@ var Game = {
             var key = freeCells.splice(index, 1)[0];
             this.map[key] = "*";
         }
+    },
+    _jumpToTerm : function(){
+
     }
 
 
