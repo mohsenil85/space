@@ -1,5 +1,9 @@
 jQuery(function($, undefined) {
     $('#term').terminal(function(command, term) {
+        if (!Game.isTermDisplayed){
+            $('#term').val("");
+        }
+        debugger;
         if(command === "q"){
             Game.isTermDisplayed = false;
             Game.engine.unlock();

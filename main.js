@@ -1,6 +1,18 @@
 var tileSet = document.createElement("img");
 tileSet.src = "./img/Commissions/Template.png";
 
+var terminalOptions = {
+    greetings: 'Javascript Interpreter',
+    name: 'js_demo',
+    height: 200,
+    prompt: 'js> ',
+    keypress: function(e) {
+        if (e.which == 27) {
+            return false;
+        }
+    }
+};
+
 var tileSetOptions = {
     width: 50,
     height: 35,
@@ -54,8 +66,23 @@ Player.prototype.handleEvent = function (e){
     //switch...
     if(code === 27) {
         Game.isTermDisplayed = true;
-        $("#term").toggle();
-        $("#term textarea").focus();
+        $("#term").terminal(function(command, terminal) {
+            if (command === "q" ){
+                debugger;
+                Game.isTermDisplayed = false;
+                Game.engine.unlock();
+                this.
+                $("#term").hide();
+            } else {
+                terminal.echo('you type command "' + command + '"');
+            }
+
+        },
+            terminalOptions
+        ).toggle();
+        //$("#term textarea").val("");
+        //$("#term").toggle();
+        //$("#term").focus();
 
     } else if(!(code in keyMap)) {
         return;
