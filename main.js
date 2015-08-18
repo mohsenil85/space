@@ -9,8 +9,8 @@ var terminalOptions = {
 };
 
 var tileSetOptions = {
-    width: 50,
-    height: 35,
+    width: 64,
+    height: 40,
     layout: "tile",
     //bg: "transparent",
     tileWidth: 16,
@@ -19,8 +19,7 @@ var tileSetOptions = {
     tileMap: {
         "@": [0, 0],
         ".": [16, 0],
-        "*": [64, 0],
-        "FRONT-3": [96, 0]
+        "*": [32, 32]
     }
 
 };
@@ -121,7 +120,7 @@ var Game = {
     map : {},
     _generateMap : function(){
 
-        var digger = new ROT.Map.Digger(50,35,{});
+        var digger = new ROT.Map.Digger(64,40,{});
         var freeCells = [];
 
         var digCallback = function(x, y, value){
