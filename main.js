@@ -6,11 +6,12 @@ var terminalOptions = {
     name: 'js_demo',
     height: 200,
     prompt: 'js> ',
-    keypress: function(e) {
-        if (e.which == 27) {
-            return false;
-        }
-    }
+    color: 'white'
+    //keypress: function(e) {
+    //    if (e.which == 27) {
+    //        return false;
+    //    }
+    //}
 };
 
 var tileSetOptions = {
@@ -44,7 +45,6 @@ Player.prototype.act = function() {
 Player.prototype.handleEvent = function (e){
 
     console.log(e.keyCode.toString());
-    if (!Game.isTermDisplayed){
 
     var keyMap = {};
 
@@ -62,26 +62,30 @@ Player.prototype.handleEvent = function (e){
     //keyMap[9] = 3 ; //n
     var code = e.keyCode;
 
-    //debugger;
     //switch...
     if(code === 27) {
-        Game.isTermDisplayed = true;
+        var termDiv = document.createElement('div');
+        termDiv.id = 'term';
+        document.body.appendChild(termDiv);
+
+        $(termDiv).css({ color: "white" });
+
         $("#term").terminal(function(command, terminal) {
             if (command === "q" ){
-                debugger;
-                Game.isTermDisplayed = false;
+                terminal.hide();
+                terminal.remove();
                 Game.engine.unlock();
-                this.
-                $("#term").hide();
             } else {
                 terminal.echo('you type command "' + command + '"');
             }
 
         },
             terminalOptions
-        ).toggle();
+        );
+
+        return;
         //$("#term textarea").val("");
-        //$("#term").toggle();
+        $("#term").css("color", "white");
         //$("#term").focus();
 
     } else if(!(code in keyMap)) {
@@ -100,7 +104,6 @@ Player.prototype.handleEvent = function (e){
 
     window.removeEventListener("keydown", this);
     Game.engine.unlock();
-    }
 }
 Player.prototype._draw = function(){
     Game.display.draw(this._x, this._y, "@", "#ff0");
@@ -110,7 +113,6 @@ var Game = {
     display: null,
     player : null,
     engine : null,
-    isTermDisplayed: false,
 
     init: function() {
         $("#term").hide();
