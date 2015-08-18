@@ -1,6 +1,7 @@
 body {
-    /*overflow: hidden;*/
-    /*-webkit-app-region: drag;*/
+    overflow: hidden;
+
+    -webkit-app-region: drag;
     /*background-color: black;*/
     position: relative;
 }

@@ -2,16 +2,10 @@ var tileSet = document.createElement("img");
 tileSet.src = "./img/Commissions/Template.png";
 
 var terminalOptions = {
-    greetings: 'Javascript Interpreter',
+    greetings: 'UNIX V6.1 beta',
     name: 'js_demo',
     height: 200,
-    prompt: 'js> ',
-    color: 'white'
-    //keypress: function(e) {
-    //    if (e.which == 27) {
-    //        return false;
-    //    }
-    //}
+    prompt: '$ ',
 };
 
 var tileSetOptions = {
@@ -25,7 +19,7 @@ var tileSetOptions = {
     tileMap: {
         "@": [0, 0],
         ".": [16, 0],
-        "FRONT-2": [64, 0],
+        "*": [64, 0],
         "FRONT-3": [96, 0]
     }
 
@@ -116,7 +110,7 @@ var Game = {
 
     init: function() {
         $("#term").hide();
-        this.display =  new ROT.Display();
+        this.display =  new ROT.Display(tileSetOptions);
         document.getElementById("map").appendChild(Game.display.getContainer());
         this._generateMap();
         var scheduler = new ROT.Scheduler.Simple();
@@ -126,7 +120,8 @@ var Game = {
     },
     map : {},
     _generateMap : function(){
-        var digger = new ROT.Map.Digger();
+
+        var digger = new ROT.Map.Digger(50,35,{});
         var freeCells = [];
 
         var digCallback = function(x, y, value){
@@ -164,10 +159,5 @@ var Game = {
             this.map[key] = "*";
         }
     },
-    _jumpToTerm : function(){
-
-    }
-
-
 };
 
