@@ -1,0 +1,8 @@
+body {
+    overflow: hidden;
+    -webkit-app-region: drag;
+    background-color: black;
+}
+
+
+
