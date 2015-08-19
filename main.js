@@ -1,25 +1,18 @@
 var tileSet = document.createElement("img");
-tileSet.src = "./img/Commissions/Template.png";
-
-var terminalOptions = {
-    greetings: 'UNIX V6.1 beta',
-    name: 'js_demo',
-    height: 200,
-    prompt: '$ ',
-};
+tileSet.src = "./img/spritesheet1.png";
 
 var tileSetOptions = {
     width: 64,
     height: 40,
     layout: "tile",
-    //bg: "transparent",
+    bg: "transparent",
     tileWidth: 16,
     tileHeight: 16,
     tileSet: tileSet,
     tileMap: {
         "@": [0, 0],
-        ".": [16, 0],
-        "*": [32, 32]
+        "*": [0, 16],
+        ".": [0, 32]
     }
 
 };
@@ -52,34 +45,34 @@ Player.prototype.handleEvent = function (e){
     keyMap[78] = 3 ; //n
 
 
-    //keyMap[9] = 3 ; //n
     var code = e.keyCode;
 
+    var term =  $("#term");
     //switch...
-    if(code === 27) {
-        var termDiv = document.createElement('div');
-        termDiv.id = 'term';
-        document.body.appendChild(termDiv);
-
-        $(termDiv).css({ color: "white" });
-
-        $("#term").terminal(function(command, terminal) {
-            if (command === "q" ){
-                terminal.hide();
-                terminal.remove();
-                Game.engine.unlock();
-            } else {
-                terminal.echo('you type command "' + command + '"');
+    if(code === 27) { //escape is pressed
+        if(term.length){
+            //term is showing, so hide it
+            term.hide();
+            term.remove();
+            Game.engine.unlock();
+        } else {
+            //do show term
+            var termDiv = document.createElement('div');
+            termDiv.id = 'term';
+            document.body.appendChild(termDiv);
+            $(termDiv).terminal(function(command, terminal) {
+                    terminal.echo('you type command "' + command + '"');
+                },
+            {
+                greetings: 'UNIX V6.1 beta',
+                name: 'js_demo',
+                //height: 200,
+                prompt: '$ '
             }
 
-        },
-            terminalOptions
-        );
-
+                );
+        }
         return;
-        //$("#term textarea").val("");
-        $("#term").css("color", "white");
-        //$("#term").focus();
 
     } else if(!(code in keyMap)) {
         return;

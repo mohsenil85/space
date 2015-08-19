@@ -1,18 +1,28 @@
 body {
     overflow: hidden;
-
     -webkit-app-region: drag;
-    /*background-color: black;*/
+    background-color: black;
     position: relative;
 }
 
 
 #term {
-   color:white;
-    /*display: none;*/
+    /*color:white;*/
     position: absolute;
     top: 0;
     left: 0;
+    width: 1024px;
+    height: 640px;
 
+
+}
+
+.terminal, .cmd {
+    font-family: 'Press Start 2P', cursive;
+    color: darkgoldenrod;
+    background-color: black;
+    opacity: 0.5;
+    font-size: 12px;
+    line-height: 14px;
 }
 
